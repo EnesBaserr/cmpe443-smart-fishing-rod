@@ -1,0 +1,17 @@
+../Src/main.c:131:6:TIM15_IRQHandler	8	static
+../Src/main.c:146:6:TIM6_IRQHandler	4	static
+../Src/main.c:164:6:init_GPIO_ICOC	4	static
+../Src/main.c:174:6:init_GPIO_SERVO	4	static
+../Src/main.c:182:6:init_GPIO_USART	4	static
+../Src/main.c:193:6:init_USART	4	static
+../Src/main.c:214:6:uart_send_char	16	static
+../Src/main.c:219:6:uart_send_string	16	static
+../Src/main.c:225:6:enable_clocks	4	static
+../Src/main.c:231:6:disable_clocks	4	static
+../Src/main.c:239:6:USART2_IRQHandler	16	static
+../Src/main.c:285:6:init_TIMER15_ICOC	4	static
+../Src/main.c:307:6:init_TIMER2_SERVO	4	static
+../Src/main.c:324:6:init_TIMER6_CASTING	4	static
+../Src/main.c:339:6:init_INTERRUPT	4	static,ignoring_inline_asm
+../Src/main.c:348:6:vibration_handler	8	static
+../Src/main.c:375:5:main	8	static,ignoring_inline_asm
