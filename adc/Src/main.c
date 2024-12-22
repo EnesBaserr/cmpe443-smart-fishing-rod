@@ -142,6 +142,41 @@ void init_ADC(void) //REFERENCE: PS10 Slide
 	ADC1->IER |= 1 << 2; //turn on EOC interrupts
 	ISER1 |= 1 << 5;//Enabling global signals for ADC Interrupt
 }
+
+void disable_ADC(void) {
+    ADC1->CR &= ~1;            //Disable ADC module
+    ADC1->CR |= (1 << 29);     //Enable deep power-down mode
+}
+void TIM15_IRQHandler(void) {
+    if (TIM15->SR & 1) {
+        TIM15->SR &= ~1;       //Clear the interrupt flag
+
+        init_ADC();          // Enable ADC
+        ADC1->CR |= (1 << 2);
+
+        while (!(ADC1->ISR & (1 << 2))); //Wait for end of conversion
+        lux_value = ADC1->DR;  //Read ADC value
+
+        disable_ADC();         //Disable ADC
+    }
+}
+
+void init_timer(void) {
+    RCC_APB2ENR |= (1 << 16);
+    TIM15->PSC = 7999;
+    TIM15->ARR = 59999;       // Interrupt every 1 minute
+    TIM15->DIER |= (1 << 0);
+    TIM15->CR1 |= (1 << 0);
+    ISER1 |= (1 << 18);
+}
+
+void TIM15_IRQHandler(void) {
+    if (TIM15->SR & 1) {
+        TIM15->SR &= ~1;
+        ADC1->CR |= (1 << 2); // Start ADC conversion
+    }
+}
+
 void ADC1_2_IRQHandler(void)	//REFERENCE: PS 10 Slide
 {
 	if((ADC1->ISR & 1<<2) != 0)
@@ -164,6 +199,7 @@ int main(void)
 	init_GPIO(); //Initiliaze GPIOA clock
 	init_ADC();	//Initiliaze ADC
 	init_LED();	//Initiliaze RGB Led
+	init_timer();
 	__enable_irq(); //Enable interrupts
 
 
@@ -185,3 +221,8 @@ int main(void)
 	}
 	return(1);
 }
+
+
+
+
+
