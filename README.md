@@ -4,7 +4,7 @@
 
     - Enes BASER
     - Yasin ATLI
-    - Furkan SENKAL
+    - Furkan ŞENKAL
     - Muhammet Emin ÇIFTÇI
     - Eymen Esad ÇELIK
     - Ali Mert GEBEN
